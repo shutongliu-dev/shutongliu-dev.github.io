@@ -28,6 +28,7 @@ h3 { margin: 0 0 .3rem; font-size: 1rem; line-height: 1.45; font-weight: 600; }
 .section-intro { margin-bottom: 1.5rem; }
 .publication { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 1.75rem; align-items: center; padding: 1.25rem; margin-inline: -1.25rem; }
 .highlighted { background: #fff8df; }
+.satellite-publication { grid-template-columns: 260px minmax(0, 1fr); }
 .paper-figure { display: block; width: 100%; height: auto; }
 .paper-copy { min-width: 0; }
 .paper-copy h3 { color: var(--link); }
@@ -63,7 +64,7 @@ footer p { margin-bottom: .4rem; }
  .profile { grid-template-columns: minmax(0, 1fr); padding-top: 1.75rem; gap: 1.5rem; }
  .profile-photo { grid-row: 1; width: 180px; justify-self: center; }
  h1 { font-size: 1.875rem; }
- .publication { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding: 1.25rem .75rem; margin-inline: -.75rem; }
+ .publication, .satellite-publication { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding: 1.25rem .75rem; margin-inline: -.75rem; }
  .paper-figure { max-width: 360px; margin-inline: auto; }
  .experience-entry { grid-template-columns: 44px minmax(0, 1fr); gap: .75rem; }
  .experience-entry .entry-date { grid-column: 2; }
