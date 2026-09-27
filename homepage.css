@@ -29,7 +29,11 @@ h3 { margin: 0 0 .3rem; font-size: 1rem; line-height: 1.45; font-weight: 600; }
 .publication { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 1.75rem; align-items: center; padding: 1.25rem; margin-inline: -1.25rem; }
 .highlighted { background: #fff8df; }
 .satellite-publication { grid-template-columns: 260px minmax(0, 1fr); }
-.paper-figure { display: block; width: 100%; height: auto; }
+.paper-media { position: relative; overflow: hidden; }
+.paper-figure { display: block; width: 100%; height: auto; transition: opacity .2s ease; }
+.paper-hover-video { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; transition: opacity .2s ease; }
+.paper-media.is-playing .paper-figure { opacity: 0; }
+.paper-media.is-playing .paper-hover-video { opacity: 1; }
 .paper-copy { min-width: 0; }
 .paper-copy h3 { color: var(--link); }
 .paper-copy p { margin-bottom: .35rem; }
@@ -78,4 +82,8 @@ footer p { margin-bottom: .4rem; }
  .profile { padding-top: 0; }
  .publication, .experience-entry, .dated-list > div { break-inside: avoid; }
  .statistics, .skip-link { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper-figure, .paper-hover-video { transition: none; }
 }

@@ -34,7 +34,12 @@
         <h2 id="publications-title">Selected Publications</h2>
         <p class="section-intro">My research spans embodied intelligence, trustworthy agents, and security. Selected work is highlighted.</p>
         <div class="publication-list"><article class="publication highlighted">
-          <img class="paper-figure" src="./assets/images/publications/univlat.webp" alt="Uni-VLaT overview with whole-body tactile sensing, multimodal prediction, and five humanoid tasks." width="1050" height="568" loading="lazy" />
+          <div class="paper-media" data-hover-video>
+            <img class="paper-figure" src="./assets/images/publications/univlat.webp" alt="Uni-VLaT overview with whole-body tactile sensing, multimodal prediction, and five humanoid tasks." width="1050" height="568" loading="lazy" />
+            <video class="paper-hover-video" muted loop playsinline preload="none" poster="./assets/images/publications/univlat.webp" aria-hidden="true">
+              <source src="./assets/videos/icra2027-demo.mp4" type="video/mp4" />
+            </video>
+          </div>
           <div class="paper-copy"><h3>Uni-VLaT: Whole-Body Tactile Adaptation of VLA Policies for Humanoid Loco-Manipulation</h3><p class="authors">Zihao Wang<sup>*</sup>, <strong>Shutong Liu<sup>*</sup></strong>, Siqi Zheng, Liu Cao, Ruoqi Chen, Rundong Liu, Yanchao Yang, Mengdi Xu<sup>†</sup></p><p class="author-notes"><small>* Equal contribution · † Corresponding author</small></p><p class="paper-status">Under review at IEEE ICRA 2027</p><p class="paper-links"><a href="https://ggkiller-air.github.io/Uni-VLaT/">Project page</a></p><p class="paper-description">Adapting pretrained VLA policies with whole-body tactile sensing and tactile-anchored multimodal prediction for contact-rich humanoid control. Achieves 75% average success across five real-robot tasks.</p></div>
         </article>
 <article class="publication">
@@ -78,5 +83,28 @@
     </main>
     <footer><p>Layout inspired by <a href="https://jonbarron.info/">Jon Barron</a>. © 2026 Shutong Liu.</p><p class="statistics"><span id="busuanzi_container_page_pv">Page views: <span id="busuanzi_value_page_pv"></span></span><span id="busuanzi_container_site_pv">Site views: <span id="busuanzi_value_site_pv"></span></span></p></footer>
   </div>
+  <script>
+    (() => {
+      const preview = document.querySelector('[data-hover-video]');
+      if (!preview) return;
+      const video = preview.querySelector('video');
+      const reset = () => {
+        video.pause();
+        video.currentTime = 0;
+        preview.classList.remove('is-playing');
+      };
+      const play = () => {
+        preview.classList.add('is-playing');
+        const promise = video.play();
+        if (promise) promise.catch(reset);
+      };
+      preview.addEventListener('mouseenter', play);
+      preview.addEventListener('mouseleave', reset);
+      preview.addEventListener('focusin', play);
+      preview.addEventListener('focusout', (event) => {
+        if (!preview.contains(event.relatedTarget)) reset();
+      });
+    })();
+  </script>
 </body>
 </html>
