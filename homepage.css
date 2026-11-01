@@ -43,6 +43,7 @@ h3 { margin: 0 0 .3rem; font-size: 1rem; line-height: 1.45; font-weight: 600; }
 .paper-copy p { margin-bottom: .35rem; }
 .paper-copy .paper-description { margin-top: .7rem; margin-bottom: 0; }
 .paper-status { font-style: italic; }
+.paper-status.accepted-status { color: #2f7d32; font-style: normal; font-weight: 600; }
 .authors { font-size: .9375rem; }
 .experience-list { display: grid; gap: 1.5rem; }
 .experience-entry { display: grid; grid-template-columns: 56px 175px minmax(0, 1fr); gap: 1.5rem; align-items: start; }
