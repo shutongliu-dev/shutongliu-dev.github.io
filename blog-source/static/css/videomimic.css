@@ -30,8 +30,8 @@ a:hover, a:focus-visible { color:#000; }
 .vm-resource-links { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:6px 0 30px; padding:12px 14px; border-top:1px solid var(--vm-rule); border-bottom:1px solid var(--vm-rule); font-family:'Roboto Mono',monospace; }
 .vm-resource-links-title { margin-right:4px; color:var(--vm-muted); font-size:12px; letter-spacing:.14em; text-transform:uppercase; }
 .vm-resource-links a { display:flex; flex:1 1 230px; min-width:0; flex-direction:column; align-items:flex-start; gap:3px; padding:7px 11px; border:1px solid #333; border-radius:8px; background:#fff; color:#222; font-size:13px; text-decoration:none; }
-.vm-resource-link-label { font-weight:600; }
-.vm-resource-link-url { color:#555; font-size:11px; line-height:1.35; overflow-wrap:anywhere; }
+.vm-resource-link-label { display:block; width:100%; font-weight:600; }
+.vm-resource-link-url { display:block; width:100%; margin-top:5px; color:#555; font-size:11px; line-height:1.35; overflow-wrap:anywhere; }
 .vm-resource-links a:hover, .vm-resource-links a:focus-visible { background:#222; color:#fff; text-decoration:none; }
 .vm-resource-links a:hover .vm-resource-link-url, .vm-resource-links a:focus-visible .vm-resource-link-url { color:#fff; }
 .vm-article { font-size:20px; line-height:1.7; }
