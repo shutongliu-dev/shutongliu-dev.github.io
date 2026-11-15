@@ -44,6 +44,7 @@ h3 { margin: 0 0 .3rem; font-size: 1rem; line-height: 1.45; font-weight: 600; }
 .blog-media-systems { background: linear-gradient(145deg, #4b2e4f, #98536f); }
 .blog-media-architecture { background: linear-gradient(145deg, #753b27, #c27a42); }
 .blog-media-foundations { background: linear-gradient(145deg, #355c45, #72a276); }
+.blog-media-agentic { background: linear-gradient(145deg, #2b315f, #557fbd); }
 .blog-meta { color: var(--muted); font-size: .875rem; }
 
 .rldex-publication {
