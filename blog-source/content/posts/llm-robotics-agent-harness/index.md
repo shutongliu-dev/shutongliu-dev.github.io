@@ -104,10 +104,27 @@ LIBERO 上的成功率从 1.6% 提升到 74.4%，在没有真实机器人训练�
 ## Cite
 
 ```bibtex
-@misc{liu2026llm4robotics,
-  title  = {LLM4Robotics: Post-Training in Harness},
-  author = {Liu, Shutong},
-  year   = {2026},
-  url    = {https://shutongliu-dev.github.io/blog/posts/llm-robotics-agent-harness/}
+@inproceedings{fu2026capx,
+  title     = {CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation},
+  author    = {Fu, Letian and Yu, Justin and El-Refai, Karim and Kou, Ethan and Xue, Haoru and Huang, Huang and Xiao, Wenli and Fei-Fei, Li and Shi, Guanya and Wu, Jiajun and Sastry, S. Shankar and Zhu, Yuke and Goldberg, Ken and Fan, Linxi},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning},
+  year      = {2026},
+  url       = {https://proceedings.mlr.press/v306/fu26u.html}
+}
+
+@article{liu2026agenticroborl,
+  title   = {AgenticRoboRL: Bringing Coding-Agent Post-Training to Agentic Robotics},
+  author  = {Liu, Xinxin and Xu, Bingxin and Bao, Wenrui and Li, Ming and Bao, Wentao and Chen, Chen and Shang, Yuzhang},
+  journal = {arXiv preprint arXiv:2610.28589},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2610.28589}
+}
+
+@article{tang2026robotuse,
+  title   = {Training Reasoning Models in Simulation to Natively Use Real Robots},
+  author  = {Tang, Jiaming and Zhang, Zhuoyang and Guo, Junxian and Zhao, Fangzhou and Zhao, Yilong and Li, Zekai and Li, Xingyang and Zhao, Yuyang and Bian, Song and Liu, Zhijian and Han, Song},
+  journal = {Preprint},
+  year    = {2026},
+  url     = {https://mit-han-lab.github.io/pear-blog/}
 }
 ```
