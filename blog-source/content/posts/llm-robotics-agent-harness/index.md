@@ -31,6 +31,34 @@ llm的训练要适应自己工作的环境。这就是每个模型最适配自�
 
 一个自然的想法是，在具身仿真环境中，对基模做后训练，以提高基模在robotics任务上的效果。这里有几篇工作已经做了类似事情。分别是，CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation（https://capgym.github.io/），AgenticRoboRL: Bringing Coding-Agent Post-Training to Agentic Robotics（https://xinxinliu-ai.github.io/AgenticRoboRL/），以及近期HanSong老师组的Training Reasoning Models in Simulation to Natively Use Real Robots（https://mit-han-lab.github.io/pear-blog/）。
 
+## 三篇 Post-training 工作
+
+### CaP-X：Code-as-Policy 的 RL post-training
+
+[CaP-X project](https://capgym.github.io/) 关注的是，能不能让 coding agent 像写程序一样控制机器人。模型不直接预测关节角，而是生成可以调用感知、运动和控制 API 的代码，代码本身就是 action space。这样，robotics task 就被转化成了 code generation、execution 和 environment feedback 的闭环。
+
+CaP-X 先用 CaP-Bench 评估不同模型在不同 API 抽象层级下的表现，再用 CaP-Agent0 做多轮交互、视觉反馈和 test-time scaling，最后通过 CaP-RL 把环境奖励直接用于 coding agent 的 post-training。官方结果显示，Qwen2.5-Coder-7B 在仿真中的平均成功率从 20% 提升到 72%，在真实 Franka 机器人上，cube lifting 和 cube stacking 分别达到 84% 和 76%。
+
+这里最值得关注的是 API abstraction。给模型一个高级的 pick-and-place 接口，任务相对容易；如果只给底层感知、位姿计算和控制接口，模型需要自己组织完整的操作逻辑，成功率会明显下降。说明 agent 的能力不只来自模型，也来自 harness 预先提供的工具和技能。CaP-RL 的价值在于，它进一步证明 RL 可以直接优化模型生成机器人控制代码的过程，而不是只能训练一个单独的低层 policy。
+
+### AgenticRoboRL：把 Coding Agent post-training 迁移到 Robotics Harness
+
+[AgenticRoboRL project](https://xinxinliu-ai.github.io/AgenticRoboRL/) · [paper](https://arxiv.org/abs/2610.28589) 研究的是更一般的 agentic robotics。机器人 agent 的执行方式并不统一：在 RPent 中，planner 可以调用冻结的 VLA skill；在 CaP-X 中，planner 也可以直接生成控制代码。它们的底层 action representation 不同，但上层都可以看成一个多轮 planner 和 environment 的交互过程。
+
+这篇工作的关键设计是在 model-call boundary 做统一。系统记录每一次模型调用的 prompt、token、log-probability 和所属 episode，再由 harness-specific adapter 把这些调用和最终任务结果关联起来。这样训练对象始终是 planner，VLA、motion tool、code executor 等执行组件保持不变；换一个 harness 时，只需要替换 adapter，不需要重新设计整套 RL pipeline。
+
+训练上，它先用成功轨迹做 SFT，再进入真实 harness 做 multi-turn RL。官方结果中，9B planner 在 LIBERO-PRO 上从 18.1% 提升到 71.0%，而且不依赖 external memory。这个结果说明，robotics agent 的 post-training 不一定要统一到底层动作，而是可以统一到模型调用和 episode reward。对我们前面说的 robotics-harness 来说，这是一种更工程化、也更容易扩展的训练接口。
+
+### Training Reasoning Models in Simulation to Natively Use Real Robots：Robot-use RL
+
+[PEAR project](https://mit-han-lab.github.io/pear-blog/) · [paper](https://mit-han-lab.github.io/pear-blog/paper.pdf) · [code](https://github.com/mit-han-lab/pear)
+
+这篇工作的路线更直接。模型观察相机图像和机器人状态，进行 reasoning，然后输出下一步的 end-effector pose，再由 IK 和 controller 执行。它不依赖额外的 perception tool、grasp planner、motion planner 或 skill library，模型自己完成 observe、reason、act、execute 的多轮闭环。作者把这种训练称为 Robot-use RL，并用 PEAR 作为长程 agentic robotics 的 post-training infrastructure。
+
+它的训练完全在仿真中进行，不使用 demonstrations。Qwen3.8-27B 在 LIBERO 上的成功率从 1.6% 提升到 74.4%，训练过程中没有直接看到 LIBERO-Long，但能力可以迁移到未训练的长程任务；在真实双臂机器人上也达到 60% 的成功率。这里的关键不是把一个 task-specific policy 训好，而是让 reasoning model 学会如何把自己的通用推理、视觉和 coding 能力用于机器人环境。
+
+PEAR 还暴露了 long-horizon robot-use RL 的系统问题：每个 episode 有很多轮图像、推理和动作，必须处理 long context、prefix cache、异步 rollout 和动态 sampling。它主要使用 episode-level binary reward，再通过 curriculum 让模型从有学习信号的任务逐步扩展到更长程的任务。因此，这篇工作和前两篇的区别在于，前两篇重点是训练一个会使用 robotics harness 的 agent，而 PEAR 更进一步，尝试让模型直接内化一部分 robot-use protocol。
+
 ## 从大模型到小模型
 
 小模型，比如qwen8B这种学校lab的常见配置，可以看到它实际效果很差，基本在有限时间内一个任务都无法完成。这时候有一些方法，比如给它一些sft的提升，在一些工作上我们也看到了这种提升。然后可以再做RL探索。
