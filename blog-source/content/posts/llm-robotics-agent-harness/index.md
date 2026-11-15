@@ -1,10 +1,11 @@
 ---
-title: "从 LLM 到 Robotics Agent：Harness、后训练与具身智能"
+title: "llm4robotics"
 date: 2026-11-15
 lastmod: 2026-11-15
 draft: false
 layout: videomimic
 kicker: "BLOG / EMBODIED AI"
+subtitle: "post-training in harness"
 description: "从 LLM、Agent Harness 到 Robotics Harness，讨论具身任务中的后训练、Agentic-RL 与效率问题。"
 authors: "Shutong Liu"
 ShowToc: true
