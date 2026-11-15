@@ -47,7 +47,7 @@ llm的训练要适应自己工作的环境。这就是每个模型最适配自�
   <a href="https://capgym.github.io/" target="_blank" rel="noopener"><span class="vm-resource-link-label">Project</span><span class="vm-resource-link-url">https://capgym.github.io/</span></a>
 </div>
 
-{{< figure src="capx-overview.png" alt="CaP-Agent0 overview showing parallel coding agents, generated robot code, visual feedback, and the robot environment" caption="CaP-Agent0 and the code execution loop used by CaP-X." >}}
+{{< figure src="/blog/images/blog/capx-overview.png" alt="CaP-Agent0 overview showing parallel coding agents, generated robot code, visual feedback, and the robot environment" caption="CaP-Agent0 and the code execution loop used by CaP-X." >}}
 
 CaP-X 的 RL 闭环比较直接：Qwen2.5-Coder-7B 生成机器人控制代码，CaP-Gym 执行代码并返回任务是否完成的环境奖励，CaP-RL 再用 GRPO 更新模型。训练的 action 不是关节角，而是可执行的 Python 程序；因此每次 rollout 都包含 code generation、execution 和 environment feedback。
 
@@ -61,7 +61,7 @@ CaP-X 的 RL 闭环比较直接：Qwen2.5-Coder-7B 生成机器人控制代码�
   <a href="https://arxiv.org/abs/2610.28589" target="_blank" rel="noopener"><span class="vm-resource-link-label">Paper</span><span class="vm-resource-link-url">https://arxiv.org/abs/2610.28589</span></a>
 </div>
 
-{{< figure src="agenticroborl-overview.png" alt="AgenticRoboRL overview showing a robot planner, robot harness, SFT, planner rollouts, and LIBERO-PRO results" caption="AgenticRoboRL: planner post-training across robot harnesses." >}}
+{{< figure src="/blog/images/blog/agenticroborl-overview.png" alt="AgenticRoboRL overview showing a robot planner, robot harness, SFT, planner rollouts, and LIBERO-PRO results" caption="AgenticRoboRL: planner post-training across robot harnesses." >}}
 
 AgenticRoboRL 的重点是把不同 harness 的 rollout 接到同一套 RL 训练里。RPent 的 planner 通过 tool call 调用冻结的 VLA skill，CaP-X 的 planner 生成控制代码，但训练时都由 proxy 记录每次 model call 的 prompt、token 和 log-probability，再由 adapter 把它们和 episode 的最终结果对齐。
 
@@ -78,13 +78,13 @@ AgenticRoboRL 的重点是把不同 harness 的 rollout 接到同一套 RL 训�
   <a href="https://github.com/mit-han-lab/pear" target="_blank" rel="noopener"><span class="vm-resource-link-label">Code</span><span class="vm-resource-link-url">https://github.com/mit-han-lab/pear</span></a>
 </div>
 
-{{< figure src="pear-overview.png" alt="PEAR overview showing robot-use RL in simulation, reward training, and real-world deployment" caption="PEAR: robot-use RL in simulation and transfer to a real robot." >}}
+{{< figure src="/blog/images/blog/pear-overview.png" alt="PEAR overview showing robot-use RL in simulation, reward training, and real-world deployment" caption="PEAR: robot-use RL in simulation and transfer to a real robot." >}}
 
 PEAR 采用 Robot-use RL：模型观察相机图像和机器人状态，输出下一步 end-effector pose，IK 和 controller 执行动作，再把新的 observation 加回 context。每个 episode 是多轮 observe、reason、act、execute，最终 reward 只有 task success 或 failure。
 
 它不使用 demonstrations，Qwen3.8-27B 直接在仿真中做 GRPO。一个 group 内的 rollout 共享 task 和 initial state，使用 episode-level binary reward 计算 group-normalized advantage；如果一个 group 全部成功或全部失败，就过滤掉重新采样。由于 base model 在复杂任务上的初始成功率接近零，作者再用 curriculum 先训练有学习信号的 LIBERO 任务，再加入 LIBERO-Long 和 RoboDojo。
 
-LIBERO 上的成功率从 1.6% 提升到 74.4%，在没有真实机器人训练数据的情况下，真实双臂机器人上达到 60%。PEAR 还把 long-context rollout、prefix cache、异步采样和动态 sampling 放进训练系统里，因为这里真正消耗资源的不是单轮更新，而是长程 episode 的反复 rollout。它展示的是一种直接用最终任务 reward 训练 reasoning model 学会 robot-use 的路径。
+LIBERO 上的成功率从 1.6% 提升到 74.4%，在没有真实机器人训练数据的情况下，真实双臂机器人上达到 60%。但需要强调的是，这些 pure RL 效果建立在很高的 compute cost 上，论文报告训练总量约为 50,000 H100-equivalent GPU-hours。这个结果证明了路径可行，但不能直接理解成低成本的 RL recipe。PEAR 还把 long-context rollout、prefix cache、异步采样和动态 sampling 放进训练系统里，因为这里真正消耗资源的不是单轮更新，而是长程 episode 的反复 rollout。它展示的是一种直接用最终任务 reward 训练 reasoning model 学会 robot-use 的路径。
 
 ## 从大模型到小模型
 
