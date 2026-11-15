@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto+Mono:wght@300;400;600;700&display=swap');
+:root { --vm-paper:#fdfaf4; --vm-ink:#1b1b1b; --vm-muted:#555; --vm-rule:#ccc; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body.videomimic-page { margin:0; padding:60px 30px; background:var(--vm-paper); color:var(--vm-ink); font-family:'Playfair Display',Georgia,serif; }
+a { color:inherit; }
+a:hover, a:focus-visible { color:#000; }
+.vm-main { max-width:960px; margin:0 auto; }
+.vm-toc { display:none; position:fixed; top:250px; width:190px; z-index:10; font-family:'Roboto Mono',monospace; }
+.vm-toc h2 { margin:0 0 10px; font:400 24px/1.2 'Playfair Display',Georgia,serif; }
+.vm-toc hr { border:0; height:1px; margin:0 0 15px; background:var(--vm-rule); }
+.vm-toc ul { margin:0; padding:0; list-style:none; }
+.vm-toc li { margin:0 0 10px; }
+.vm-toc li li { margin-left:20px; font-size:.95em; }
+.vm-toc a { color:#333; font-size:15px; text-decoration:none; }
+.vm-toc a:hover, .vm-toc a:focus-visible { text-decoration:underline; }
+.vm-hero h1 { margin:0 0 10px; font-size:clamp(2.5rem,6vw,3.75rem); line-height:1.1; letter-spacing:-.03em; }
+.vm-kicker, .vm-article h2 { display:inline-block; background:#000; color:#fff; font-family:'Roboto Mono',monospace; }
+.vm-kicker { margin-bottom:20px; padding:6px 14px; font-size:14px; letter-spacing:.04em; }
+.vm-subtitle { margin:0 0 32px; max-width:920px; font-size:clamp(1.75rem,4vw,2.5rem); line-height:1.2; }
+.vm-authors, .vm-affiliation, .vm-date, .vm-links, .vm-caption, .vm-footer { font-family:'Roboto Mono',monospace; }
+.vm-authors { margin:0 0 4px; font-size:16px; line-height:1.6; }
+.vm-affiliation { margin:0 0 4px; font-size:15px; font-weight:600; }
+.vm-date { margin:0 0 26px; color:var(--vm-muted); font-size:14px; }
+.vm-hero-video, .vm-hero-image { display:block; width:100%; height:auto; margin:22px 0 0; border:1.5px solid #000; border-radius:15px; }
+.vm-caption { margin:10px 0 34px; padding:0 20px; color:var(--vm-muted); font-size:14px; line-height:1.6; text-align:center; }
+.vm-links { margin:24px 0 30px; text-align:center; }
+.vm-links a { margin:0 18px; font-size:17px; font-weight:700; text-decoration:none; }
+.vm-links a:hover, .vm-links a:focus-visible { text-decoration:underline; }
+.vm-article { font-size:20px; line-height:1.7; }
+.vm-article > :first-child { margin-top:0; }
+.vm-article h2 { margin:48px 0 26px; padding:8px 16px; font-size:24px; font-weight:400; line-height:1.3; }
+.vm-article h3 { margin:34px 0 16px; font:600 20px/1.4 'Roboto Mono',monospace; }
+.vm-article p { margin:0 0 28px; }
+.vm-article img, .vm-article video { display:block; max-width:100%; height:auto; margin:20px auto 10px; border:1.5px solid #000; border-radius:15px; }
+.vm-article figure { margin:34px 0 42px; }
+.vm-article figure img { margin:0 auto 10px; }
+.vm-article figcaption, .vm-article .figure-caption { color:var(--vm-muted); font:14px/1.6 'Roboto Mono',monospace; text-align:center; }
+.vm-article blockquote { margin:40px 0; padding:8px 24px; border-left:4px solid #000; font-size:1.15em; font-style:italic; }
+.vm-article pre { overflow-x:auto; padding:20px; border-radius:8px; background:#333; color:#f1f1f1; font:14px/1.55 'Roboto Mono',monospace; }
+.vm-article code { font-family:'Roboto Mono',monospace; }
+.vm-article :not(pre) > code { padding:2px 5px; background:#eee8dc; }
+.vm-article table { width:100%; margin:28px 0; border-collapse:collapse; font-size:.85em; }
+.vm-article th, .vm-article td { padding:8px 10px; border-bottom:1px solid var(--vm-rule); text-align:left; }
+.vm-footer { display:flex; justify-content:center; gap:10px; margin-top:80px; padding-top:30px; border-top:1px solid var(--vm-rule); color:#666; font-size:14px; }
+@media (min-width:1400px) { .vm-toc { display:block; left:max(30px,calc(25vw - 330px)); } }
+@media (max-width:700px) { body.videomimic-page { padding:32px 20px; } .vm-article { font-size:18px; } .vm-links a { display:inline-block; margin:0 8px 10px; } .vm-footer { flex-wrap:wrap; margin-top:55px; } }

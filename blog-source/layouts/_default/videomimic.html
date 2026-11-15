@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ .Title }} · {{ .Site.Title }}</title>
+  {{ with .Params.description }}<meta name="description" content="{{ . }}">{{ end }}
+  <link rel="stylesheet" href="{{ "css/videomimic.css" | relURL }}">
+</head>
+<body class="videomimic-page">
+  <aside class="vm-toc" aria-label="Contents">
+    <h2>Content</h2>
+    <hr>
+    {{ .TableOfContents }}
+  </aside>
+  <main class="vm-main">
+    <header class="vm-hero">
+      {{ with .Params.kicker }}<div class="vm-kicker">{{ . }}</div>{{ end }}
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.subtitle }}<p class="vm-subtitle">{{ . }}</p>{{ end }}
+      {{ with .Params.authors }}<p class="vm-authors">{{ . }}</p>{{ end }}
+      {{ with .Params.affiliation }}<p class="vm-affiliation">{{ . }}</p>{{ end }}
+      {{ with .Params.date }}<p class="vm-date">{{ . | time.Format "January 2, 2006" }}</p>{{ end }}
+    </header>
+    {{ with .Params.hero_video }}<video class="vm-hero-video" src="{{ . | relURL }}" controls muted playsinline preload="metadata"></video>{{ end }}
+    {{ with .Params.hero_image }}<img class="vm-hero-image" src="{{ . | relURL }}" alt="{{ $.Params.hero_alt | default $.Title }}">{{ end }}
+    {{ with .Params.hero_caption }}<p class="vm-caption">{{ . }}</p>{{ end }}
+    {{ with .Params.links }}
+      <nav class="vm-links" aria-label="Article links">
+        {{ range . }}{{ $link := . }}<a href="{{ $link.url }}" target="_blank" rel="noopener">[{{ $link.name }}]</a>{{ end }}
+      </nav>
+    {{ end }}
+    <article class="vm-article">{{ .Content }}</article>
+    <footer class="vm-footer"><a href="{{ "blog/" | relURL }}">Back to Blog</a><span>·</span><span>{{ .Site.Title }}</span></footer>
+  </main>
+</body>
+</html>
