@@ -33,9 +33,9 @@ llm的训练要适应自己工作的环境。这就是每个模型最适配自�
 
 <div class="vm-resource-links" aria-label="Paper links">
   <span class="vm-resource-links-title">Links</span>
-  <a href="https://capgym.github.io/" target="_blank" rel="noopener">CaP-X</a>
-  <a href="https://xinxinliu-ai.github.io/AgenticRoboRL/" target="_blank" rel="noopener">AgenticRoboRL</a>
-  <a href="https://mit-han-lab.github.io/pear-blog/" target="_blank" rel="noopener">PEAR</a>
+  <a href="https://capgym.github.io/" target="_blank" rel="noopener"><span class="vm-resource-link-label">CaP-X</span><span class="vm-resource-link-url">https://capgym.github.io/</span></a>
+  <a href="https://xinxinliu-ai.github.io/AgenticRoboRL/" target="_blank" rel="noopener"><span class="vm-resource-link-label">AgenticRoboRL</span><span class="vm-resource-link-url">https://xinxinliu-ai.github.io/AgenticRoboRL/</span></a>
+  <a href="https://mit-han-lab.github.io/pear-blog/" target="_blank" rel="noopener"><span class="vm-resource-link-label">PEAR</span><span class="vm-resource-link-url">https://mit-han-lab.github.io/pear-blog/</span></a>
 </div>
 
 ## 三篇 Post-training 工作
@@ -44,7 +44,7 @@ llm的训练要适应自己工作的环境。这就是每个模型最适配自�
 
 <div class="vm-resource-links" aria-label="CaP-X links">
   <span class="vm-resource-links-title">Links</span>
-  <a href="https://capgym.github.io/" target="_blank" rel="noopener">Project</a>
+  <a href="https://capgym.github.io/" target="_blank" rel="noopener"><span class="vm-resource-link-label">Project</span><span class="vm-resource-link-url">https://capgym.github.io/</span></a>
 </div>
 
 CaP-X 关注的是，能不能让 coding agent 像写程序一样控制机器人。模型不直接预测关节角，而是生成可以调用感知、运动和控制 API 的代码，代码本身就是 action space。这样，robotics task 就被转化成了 code generation、execution 和 environment feedback 的闭环。
@@ -57,8 +57,8 @@ CaP-X 先用 CaP-Bench 评估不同模型在不同 API 抽象层级下的表现�
 
 <div class="vm-resource-links" aria-label="AgenticRoboRL links">
   <span class="vm-resource-links-title">Links</span>
-  <a href="https://xinxinliu-ai.github.io/AgenticRoboRL/" target="_blank" rel="noopener">Project</a>
-  <a href="https://arxiv.org/abs/2610.28589" target="_blank" rel="noopener">Paper</a>
+  <a href="https://xinxinliu-ai.github.io/AgenticRoboRL/" target="_blank" rel="noopener"><span class="vm-resource-link-label">Project</span><span class="vm-resource-link-url">https://xinxinliu-ai.github.io/AgenticRoboRL/</span></a>
+  <a href="https://arxiv.org/abs/2610.28589" target="_blank" rel="noopener"><span class="vm-resource-link-label">Paper</span><span class="vm-resource-link-url">https://arxiv.org/abs/2610.28589</span></a>
 </div>
 
 AgenticRoboRL 研究的是更一般的 agentic robotics。机器人 agent 的执行方式并不统一：在 RPent 中，planner 可以调用冻结的 VLA skill；在 CaP-X 中，planner 也可以直接生成控制代码。它们的底层 action representation 不同，但上层都可以看成一个多轮 planner 和 environment 的交互过程。
@@ -71,9 +71,9 @@ AgenticRoboRL 研究的是更一般的 agentic robotics。机器人 agent 的执
 
 <div class="vm-resource-links" aria-label="PEAR links">
   <span class="vm-resource-links-title">Links</span>
-  <a href="https://mit-han-lab.github.io/pear-blog/" target="_blank" rel="noopener">Project</a>
-  <a href="https://mit-han-lab.github.io/pear-blog/paper.pdf" target="_blank" rel="noopener">Paper</a>
-  <a href="https://github.com/mit-han-lab/pear" target="_blank" rel="noopener">Code</a>
+  <a href="https://mit-han-lab.github.io/pear-blog/" target="_blank" rel="noopener"><span class="vm-resource-link-label">Project</span><span class="vm-resource-link-url">https://mit-han-lab.github.io/pear-blog/</span></a>
+  <a href="https://mit-han-lab.github.io/pear-blog/paper.pdf" target="_blank" rel="noopener"><span class="vm-resource-link-label">Paper</span><span class="vm-resource-link-url">https://mit-han-lab.github.io/pear-blog/paper.pdf</span></a>
+  <a href="https://github.com/mit-han-lab/pear" target="_blank" rel="noopener"><span class="vm-resource-link-label">Code</span><span class="vm-resource-link-url">https://github.com/mit-han-lab/pear</span></a>
 </div>
 
 这篇工作的路线更直接。模型观察相机图像和机器人状态，进行 reasoning，然后输出下一步的 end-effector pose，再由 IK 和 controller 执行。它不依赖额外的 perception tool、grasp planner、motion planner 或 skill library，模型自己完成 observe、reason、act、execute 的多轮闭环。作者把这种训练称为 Robot-use RL，并用 PEAR 作为长程 agentic robotics 的 post-training infrastructure。
