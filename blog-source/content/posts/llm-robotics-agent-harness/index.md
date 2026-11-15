@@ -51,7 +51,7 @@ llm的训练要适应自己工作的环境。这就是每个模型最适配自�
 
 CaP-X 的 RL 闭环比较直接：Qwen2.5-Coder-7B 生成机器人控制代码，CaP-Gym 执行代码并返回任务是否完成的环境奖励，CaP-RL 再用 GRPO 更新模型。训练的 action 不是关节角，而是可执行的 Python 程序；因此每次 rollout 都包含 code generation、execution 和 environment feedback。
 
-作者主要使用 privileged state-based API 做训练，先减少视觉和控制噪声，让 reward 更容易归因，再把模型放到更复杂的 API 和真实机器人上测试。官方结果显示，模型在仿真中的平均成功率从 20% 提升到 72%，在真实 Franka 机器人上，cube lifting 和 cube stacking 分别达到 84% 和 76%。这说明 RL 优化的是代码里的操作顺序、工具调用和几何计算，而不是一个单独的低层 policy。
+作者在 RL 训练阶段主要使用 privileged state-based API。这个 API 直接从仿真器提供物体的真实位置、姿态和 mask，模型不需要先从 RGB-D 图像中做视觉估计，因此可以先排除感知误差和控制误差的干扰，让任务 reward 更容易归因。这里的 privileged information 只用于训练；训练完成后，模型还要在带有真实感知噪声的 API 和真实机器人上测试。官方结果显示，模型在仿真中的平均成功率从 20% 提升到 72%，在真实 Franka 机器人上，cube lifting 和 cube stacking 分别达到 84% 和 76%。这说明 RL 优化的是代码里的操作顺序、工具调用和几何计算，而不是一个单独的低层 policy。
 
 ### AgenticRoboRL：把 Coding Agent post-training 迁移到 Robotics Harness
 
