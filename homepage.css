@@ -33,6 +33,7 @@ h3 { margin: 0 0 .3rem; font-size: 1rem; line-height: 1.45; font-weight: 600; }
 #blog { border-top: 1px solid #eee; padding-top: 1.75rem; }
 .blog-list { display: grid; }
 .blog-entry { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 1.75rem; align-items: center; padding: 1.25rem; margin-inline: -1.25rem; }
+.blog-entry-text-only { grid-template-columns: minmax(0, 1fr); padding-block: 1rem; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
 .blog-entry:nth-child(even) { background: #fafafa; }
 .blog-media { min-height: 148px; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between; color: #fff; text-decoration: none; overflow: hidden; }
 .blog-media:hover { color: #fff; text-decoration: none; }
