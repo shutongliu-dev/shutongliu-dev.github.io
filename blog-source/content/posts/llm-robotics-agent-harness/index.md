@@ -5,7 +5,7 @@ lastmod: 2026-11-15
 draft: false
 layout: videomimic
 kicker: "BLOG / EMBODIED AI"
-subtitle: "post-training in harness"
+subtitle: "Post-Training in Harness"
 description: "从 LLM、Agent Harness 到 Robotics Harness，讨论具身任务中的后训练、Agentic-RL 与效率问题。"
 authors: "Shutong Liu"
 ShowToc: true
@@ -39,9 +39,9 @@ llm的训练要适应自己工作的环境。这就是每个模型最适配自�
   <a href="https://mit-han-lab.github.io/pear-blog/" target="_blank" rel="noopener"><span class="vm-resource-link-label">PEAR</span><span class="vm-resource-link-url">https://mit-han-lab.github.io/pear-blog/</span></a>
 </div>
 
-## Related Work：LLM Post-training for Robotics
+## Related Work：LLM Post-Training for Robotics
 
-### CaP-X：Code-as-Policy 的 RL post-training
+### CaP-X：Code-as-Policy 的 RL Post-Training
 
 <div class="vm-resource-links" aria-label="CaP-X links">
   <span class="vm-resource-links-title">Links</span>
@@ -54,7 +54,7 @@ CaP-X 的 RL 闭环比较直接：Qwen2.5-Coder-7B 生成机器人控制代码�
 
 作者在 RL 训练阶段主要使用 privileged state-based API。这个 API 直接从仿真器提供物体的真实位置、姿态和 mask，模型不需要先从 RGB-D 图像中做视觉估计，因此可以先排除感知误差和控制误差的干扰，让任务 reward 更容易归因。这里的 privileged information 只用于训练；训练完成后，模型还要在带有真实感知噪声的 API 和真实机器人上测试。官方结果显示，模型在仿真中的平均成功率从 20% 提升到 72%，在真实 Franka 机器人上，cube lifting 和 cube stacking 分别达到 84% 和 76%。这说明 RL 优化的是代码里的操作顺序、工具调用和几何计算，而不是一个单独的低层 policy。
 
-### AgenticRoboRL：把 Coding Agent post-training 迁移到 Robotics Harness
+### AgenticRoboRL：把 Coding Agent Post-Training 迁移到 Robotics Harness
 
 <div class="vm-resource-links" aria-label="AgenticRoboRL links">
   <span class="vm-resource-links-title">Links</span>
@@ -70,7 +70,7 @@ AgenticRoboRL 的重点是把不同 harness 的 rollout 接到同一套 RL 训�
 
 在 LIBERO-PRO 上，9B planner 从 18.1% 提升到 71.0%，而且不使用 external memory。这里真正值得关注的是，RL 的训练单位不是某个底层动作，而是长程 episode 中的一系列模型调用；harness 只负责提供 rollout 和 outcome，planner 才是被优化的对象。
 
-### Training Reasoning Models in Simulation to Natively Use Real Robots：Robot-use RL
+### Training Reasoning Models in Simulation to Natively Use Real Robots：Robot-Use RL
 
 <div class="vm-resource-links" aria-label="PEAR links">
   <span class="vm-resource-links-title">Links</span>
