@@ -47,6 +47,11 @@ llm的训练要适应自己工作的环境。这就是每个模型最适配自�
   <a href="https://capgym.github.io/" target="_blank" rel="noopener"><span class="vm-resource-link-label">Project</span><span class="vm-resource-link-url">https://capgym.github.io/</span></a>
 </div>
 
+<figure>
+  <img src="capx-overview.png" alt="CaP-Agent0 overview showing parallel coding agents, generated robot code, visual feedback, and the robot environment">
+  <figcaption>CaP-Agent0 and the code execution loop used by CaP-X.</figcaption>
+</figure>
+
 CaP-X 的 RL 闭环比较直接：Qwen2.5-Coder-7B 生成机器人控制代码，CaP-Gym 执行代码并返回任务是否完成的环境奖励，CaP-RL 再用 GRPO 更新模型。训练的 action 不是关节角，而是可执行的 Python 程序；因此每次 rollout 都包含 code generation、execution 和 environment feedback。
 
 作者主要使用 privileged state-based API 做训练，先减少视觉和控制噪声，让 reward 更容易归因，再把模型放到更复杂的 API 和真实机器人上测试。官方结果显示，模型在仿真中的平均成功率从 20% 提升到 72%，在真实 Franka 机器人上，cube lifting 和 cube stacking 分别达到 84% 和 76%。这说明 RL 优化的是代码里的操作顺序、工具调用和几何计算，而不是一个单独的低层 policy。
@@ -58,6 +63,11 @@ CaP-X 的 RL 闭环比较直接：Qwen2.5-Coder-7B 生成机器人控制代码�
   <a href="https://xinxinliu-ai.github.io/AgenticRoboRL/" target="_blank" rel="noopener"><span class="vm-resource-link-label">Project</span><span class="vm-resource-link-url">https://xinxinliu-ai.github.io/AgenticRoboRL/</span></a>
   <a href="https://arxiv.org/abs/2610.28589" target="_blank" rel="noopener"><span class="vm-resource-link-label">Paper</span><span class="vm-resource-link-url">https://arxiv.org/abs/2610.28589</span></a>
 </div>
+
+<figure>
+  <img src="agenticroborl-overview.png" alt="AgenticRoboRL overview showing a robot planner, robot harness, SFT, planner rollouts, and LIBERO-PRO results">
+  <figcaption>AgenticRoboRL: planner post-training across robot harnesses.</figcaption>
+</figure>
 
 AgenticRoboRL 的重点是把不同 harness 的 rollout 接到同一套 RL 训练里。RPent 的 planner 通过 tool call 调用冻结的 VLA skill，CaP-X 的 planner 生成控制代码，但训练时都由 proxy 记录每次 model call 的 prompt、token 和 log-probability，再由 adapter 把它们和 episode 的最终结果对齐。
 
@@ -73,6 +83,11 @@ AgenticRoboRL 的重点是把不同 harness 的 rollout 接到同一套 RL 训�
   <a href="https://mit-han-lab.github.io/pear-blog/paper.pdf" target="_blank" rel="noopener"><span class="vm-resource-link-label">Paper</span><span class="vm-resource-link-url">https://mit-han-lab.github.io/pear-blog/paper.pdf</span></a>
   <a href="https://github.com/mit-han-lab/pear" target="_blank" rel="noopener"><span class="vm-resource-link-label">Code</span><span class="vm-resource-link-url">https://github.com/mit-han-lab/pear</span></a>
 </div>
+
+<figure>
+  <img src="pear-overview.png" alt="PEAR overview showing robot-use RL in simulation, reward training, and real-world deployment">
+  <figcaption>PEAR: robot-use RL in simulation and transfer to a real robot.</figcaption>
+</figure>
 
 PEAR 采用 Robot-use RL：模型观察相机图像和机器人状态，输出下一步 end-effector pose，IK 和 controller 执行动作，再把新的 observation 加回 context。每个 episode 是多轮 observe、reason、act、execute，最终 reward 只有 task success 或 failure。
 
