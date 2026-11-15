@@ -23,7 +23,7 @@ llm的训练与其harness要适配。预训练带来foundational的先验能力�
 
 将robotics任务视为基模的一个domain。天然的，我们首先希望模型有关于物理空间的先验理解（当然，它可能来自language，来自vision，来自latent representation，等等）。然后一个可以输出自然语言的model当然可以控制robotics的关节角如何变化，如何移动等等，这是自然的想法，也很早一直有工作在探索，近期o/a基模在这些任务上的出色表现给它带来更多关注。
 
-Follow llm 2 agent的范式，我们可以给基模提供robotics的环境和工具接口让它执行任务。robotics community称为robot harness。这里其实有了两个harness的概念。我认为后者主要是在agent原有的harness上提供外部的robotics接口。也就是说，你在使用codex做robotics，你需要codex带来的工具调用、长程任务、memory、上下文压缩等等为llm带来的能力，而不只是一个chat model。而robotics-harness是针对robotics任务的，为llm agent提供的各种环境、接口、函数了。目前来看它更加外部，可以直接注入到agent的工作区。在将来，它可以被各大厂内化集成到自己的agent框架里，just 类比 现在agent自带的browser-use，computer-use等等能力。
+Follow llm 2 agent的范式，我们可以给基模提供robotics的环境和工具接口让它执行任务。执行方式有不同粒度和层级各种方式，比如通过coding，比如直接调用vla policy等等，输出的目标也可以是EEF-position，action chunks等等。robotics community称为robot harness。这里其实有了两个harness的概念。我认为后者主要是在agent原有的harness上提供外部的robotics接口。也就是说，你在使用codex做robotics，你需要codex带来的工具调用、长程任务、memory、上下文压缩等等为llm带来的能力，而不只是一个chat model。而robotics-harness是针对robotics任务的，为llm agent提供的各种环境、接口、函数了。目前来看它更加外部，可以直接注入到agent的工作区。在将来，它可以被各大厂内化集成到自己的agent框架里，just 类比 现在agent自带的browser-use，computer-use等等能力。
 
 ## Harness 适配与 Agentic-RL
 
