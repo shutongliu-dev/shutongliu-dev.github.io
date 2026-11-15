@@ -27,11 +27,9 @@ Follow llm 2 agent的范式，我们可以给基模提供robotics的环境和工
 
 ## Harness 适配与 Agentic-RL
 
-llm的训练要适应自己工作的环境。这就是每个模型最适配自己的harness，A模型在Aharness上RL训练，它的工具调用可能就更长，更适合完成复杂任务，换到Bharness上可能就做不到了。这部分训练在LLM中主要通过后训练，在工业界非常成熟，我们尤其对agentic-RL，这类长程任务感兴趣。因为它非常现实实用，且牵扯到很多奖励信号稀疏，数据采样和训练的efficient问题。
+llm的训练要适应自己工作的环境。这就是每个模型最适配自己的harness，A模型在A-harness上RL训练，它的工具调用可能就更长，更适合完成复杂任务，换到B-harness上可能就做不到了那么多轮的工具调用和思考了。这种llm的后训练在工业界非常成熟，我们尤其对agentic-RL，这类长程任务感兴趣。因为它很具有现实和实用性，牵扯到很多奖励信号稀疏，数据采样和训练的efficient问题。
 
-一个自然的想法是，在具身仿真环境中，对基模做后训练，以提高基模在robotics任务上的效果。这里有几篇工作已经做了类似的事情。分别是，CAP-X，agenticROBOTRL，以及近期hansong组的Training Reasoning Models in Simulation to Natively Use Real Robots。这几篇我们详细讲讲。包括一些适配的框架，RPENT,CAP-X等等。这部分无论是让llm去做code-as-policy还是说调用一些policy等等，都是ok的，我们倾向于在training时充分发挥codiing的能力。在实际应用时当然可以支持一些底层system 01  policy的调用
-
-大模型有着更强的物理空间先验，起步更适合去做RL。
+一个自然的想法是，在具身仿真环境中，对基模做后训练，以提高基模在robotics任务上的效果。这里有几篇工作已经做了类似事情。分别是，CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation（https://capgym.github.io/），AgenticRoboRL: Bringing Coding-Agent Post-Training to Agentic Robotics（https://xinxinliu-ai.github.io/AgenticRoboRL/），以及近期HanSong老师组的Training Reasoning Models in Simulation to Natively Use Real Robots（https://mit-han-lab.github.io/pear-blog/）。
 
 ## 从大模型到小模型
 
