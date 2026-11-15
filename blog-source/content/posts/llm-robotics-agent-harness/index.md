@@ -86,7 +86,7 @@ PEAR 采用 Robot-use RL：模型观察相机图像和机器人状态，输出�
 
 LIBERO 上的成功率从 1.6% 提升到 74.4%，在没有真实机器人训练数据的情况下，真实双臂机器人上达到 60%。但需要强调的是，这些 pure RL 效果建立在很高的 compute cost 上，论文报告训练总量约为 50,000 H100-equivalent GPU-hours。PEAR 还把 long-context rollout、prefix cache、异步采样和动态 sampling 放进训练系统里，因为这里真正消耗资源的不是单轮更新，而是长程 episode 的反复 rollout。它展示的是一种直接用最终任务 reward 训练 reasoning model 学会 robot-use 的路径。
 
-## llm post-training 4 robotics
+## What's Next
 
 小模型，比如 Qwenvl 的 8-9B 这种学校 lab 的常见配置，直接做仿真任务效果是很差的，基本有限时间内一个任务都无法完成。这时 SFT 在这种 cold start 阶段起到作用，让模型先学会基本的工具调用和操作顺序，再进入 RL 探索。但 PEAR 也说明，SFT 不是绝对前提：如果模型本身有足够强的 reasoning、coding 和视觉先验，配合 curriculum，RL 可以从接近零的成功率开始获得有效信号。后者需要更大的模型、更精心的任务选择和更高的 compute。
 
