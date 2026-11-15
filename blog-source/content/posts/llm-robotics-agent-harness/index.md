@@ -100,3 +100,14 @@ LIBERO 上的成功率从 1.6% 提升到 74.4%，在没有真实机器人训练�
 3. 一些理论问题。模型做 robotics 到底需要什么能力。物理理解、空间推理这些能力有多少已经存在于 foundation model，RL 在激活一些 foundation model 已有的能力之外，又带来了什么，如何做到合适 post-training 的配比，确保不损伤 foundation model 主干能力。
 
 站在工业界的角度，针对 robotics 任务的 post-training scaling 是一件很值得做的事情。仿真环境天然提供了丰富且合适的 environment 和 reward，支撑着大规模可并行的 RL 探索。这部分 post-training 不仅是针对 model 本身的，相信会让 model 和其 harness 充分适配，在环境中不断强化自身。我们过往出色地解决了 coding、数学证明、computer-use 等等，期待在 robotics 上，我们过往的经验和崭新的知识与场景也会协同起来绽放硕果。
+
+## Cite
+
+```bibtex
+@misc{liu2026llm4robotics,
+  title  = {LLM4Robotics: Post-Training in Harness},
+  author = {Liu, Shutong},
+  year   = {2026},
+  url    = {https://shutongliu-dev.github.io/blog/posts/llm-robotics-agent-harness/}
+}
+```
