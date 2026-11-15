@@ -84,7 +84,7 @@ PEAR 采用 Robot-use RL：模型观察相机图像和机器人状态，输出�
 
 它不使用 demonstrations，Qwen3.8-27B 直接在仿真中做 GRPO。一个 group 内的 rollout 共享 task 和 initial state，使用 episode-level binary reward 计算 group-normalized advantage；如果一个 group 全部成功或全部失败，就过滤掉重新采样。由于 base model 在复杂任务上的初始成功率接近零，作者再用 curriculum 先训练有学习信号的 LIBERO 任务，再加入 LIBERO-Long 和 RoboDojo。
 
-LIBERO 上的成功率从 1.6% 提升到 74.4%，在没有真实机器人训练数据的情况下，真实双臂机器人上达到 60%。但需要强调的是，这些 pure RL 效果建立在很高的 compute cost 上，论文报告训练总量约为 50,000 H100-equivalent GPU-hours。这个结果证明了路径可行，但不能直接理解成低成本的 RL recipe。PEAR 还把 long-context rollout、prefix cache、异步采样和动态 sampling 放进训练系统里，因为这里真正消耗资源的不是单轮更新，而是长程 episode 的反复 rollout。它展示的是一种直接用最终任务 reward 训练 reasoning model 学会 robot-use 的路径。
+LIBERO 上的成功率从 1.6% 提升到 74.4%，在没有真实机器人训练数据的情况下，真实双臂机器人上达到 60%。但需要强调的是，这些 pure RL 效果建立在很高的 compute cost 上，论文报告训练总量约为 50,000 H100-equivalent GPU-hours。PEAR 还把 long-context rollout、prefix cache、异步采样和动态 sampling 放进训练系统里，因为这里真正消耗资源的不是单轮更新，而是长程 episode 的反复 rollout。它展示的是一种直接用最终任务 reward 训练 reasoning model 学会 robot-use 的路径。
 
 ## Post-training Scaling：Robotics Agentic RL 的下一步
 
