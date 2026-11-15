@@ -26,7 +26,7 @@ llm的训练与其harness要适配。预训练带来foundational的先验能力�
 
 Follow llm 2 agent的范式，我们可以给基模提供robotics的环境和工具接口让它执行任务。执行方式有不同粒度和层级各种方式，比如通过coding，比如直接调用vla policy等等，输出的目标也可以是EEF-position，action chunks等等。robotics community称为robot harness。这里其实有了两个harness的概念。我认为后者主要是在agent原有的harness上提供外部的robotics接口。也就是说，你在使用codex做robotics，你需要codex带来的工具调用、长程任务、memory、上下文压缩等等为llm带来的能力，而不只是一个chat model。而robotics-harness是针对robotics任务的，为llm agent提供的各种环境、接口、函数了。目前来看它更加外部，可以直接注入到agent的工作区。在将来，它可以被各大厂内化集成到自己的agent框架里，just 类比 现在agent自带的browser-use，computer-use等等能力。
 
-## Harness 适配与 Agentic-RL
+## post-training in harness
 
 llm的训练要适应自己工作的环境。这就是每个模型最适配自己的harness，A模型在A-harness上RL训练，它的工具调用可能就更长，更适合完成复杂任务，换到B-harness上可能就做不到了那么多轮的工具调用和思考了。这种llm的后训练在工业界非常成熟，我们尤其对agentic-RL，这类长程任务感兴趣。因为它很具有现实和实用性，牵扯到很多奖励信号稀疏，数据采样和训练的efficient问题。
 
