@@ -15,7 +15,7 @@ TocOpen: true
 
 近期来，Astra，Fable5.2等大模型涌现出来对机器人任务精细的控制能力与强大的推理、泛化能力。llm是经过scale up的模型，其具有的零样本泛化能力和上下文学习能力天然解决了目前具身模型所不充分具有的scaling带来的ICL泛化能力。当我们把具身任务视为是llm一个下游domain的时候，很多一两年前在llm和·agentic AI发展中的经验就可以被复用上来。
 
-llm对自然语言处理的能力日益精进之后，外部工具调用、记忆框架、复杂的上下文系统管理等等让它在真实世界操作执行任务中释放出了巨大潜力，逐渐成熟为agent，以及现在被广泛提及的agent harness概念。各个基模大厂也基本都release出了自己coding agent的harness框架。coding agent不局限于coding，而是借助coding为接口，理论上可以解决发生在computer上的所有任务。配合vlm视觉的能力，computer-use agent得到发展，在agent的computer-use上，配合coding与visual日渐成熟。
+llm对自然语言处理的能力日益精进之后，外部工具调用、记忆框架、复杂的上下文系统管理等等让它在真实世界操作执行任务中释放出了巨大潜力，逐渐成熟为agent，以及现在被广泛提及的agent harness概念。各个基模大厂也基本都release出了自己coding agent的harness框架。coding agent不局限于coding，而是借助coding为接口，理论上可以解决发生在computer上的所有任务。随着 VLM 视觉能力不断增强，computer-use agent 逐渐发展起来，coding 与 visual 能力也在这一场景中不断成熟并形成协同。
 
 ## Harness 与具身任务
 
