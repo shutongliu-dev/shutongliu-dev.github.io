@@ -38,7 +38,7 @@ llm的训练要适应自己工作的环境。这就是每个模型最适配自�
   <a href="https://mit-han-lab.github.io/pear-blog/" target="_blank" rel="noopener"><span class="vm-resource-link-label">PEAR</span><span class="vm-resource-link-url">https://mit-han-lab.github.io/pear-blog/</span></a>
 </div>
 
-## 三篇 Post-training 工作
+## Related Work：LLM Post-training for Robotics
 
 ### CaP-X：Code-as-Policy 的 RL post-training
 
