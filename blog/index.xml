@@ -6,8 +6,15 @@
     <description>Recent content on LLM Notes | 大模型学习笔记</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 15 Nov 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://landauros.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>从 LLM 到 Robotics Agent：Harness、后训练与具身智能</title>
+      <link>https://landauros.github.io/blog/posts/llm-robotics-agent-harness/</link>
+      <pubDate>Sun, 15 Nov 2026 00:00:00 +0000</pubDate>
+      <guid>https://landauros.github.io/blog/posts/llm-robotics-agent-harness/</guid>
+      <description>从 LLM、Agent Harness 到 Robotics Harness，讨论具身任务中的后训练、Agentic-RL 与效率问题。</description>
+    </item>
     <item>
       <title>图灵机纸带：把计算过程拉成一条可以亲眼看见的带子</title>
       <link>https://landauros.github.io/blog/posts/04-turing-machine-tape/</link>
