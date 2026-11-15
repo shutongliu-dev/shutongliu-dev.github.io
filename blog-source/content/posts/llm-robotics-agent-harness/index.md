@@ -1,0 +1,49 @@
+---
+title: "从 LLM 到 Robotics Agent：Harness、后训练与具身智能"
+date: 2026-11-15
+lastmod: 2026-11-15
+draft: false
+layout: videomimic
+kicker: "BLOG / EMBODIED AI"
+description: "从 LLM、Agent Harness 到 Robotics Harness，讨论具身任务中的后训练、Agentic-RL 与效率问题。"
+authors: "Shutong Liu"
+affiliation: "Beihang University"
+ShowToc: true
+TocOpen: true
+---
+
+## 从 LLM 到 Agent
+
+近期来，astra，fable5.2的大模型涌现出来对机器人任务精妙的控制能力。llm是经过scaleup的模型，以其天然具有的零样本泛化能力和上下文学习能力解决了具身模型所不具有的scaling带来的ICL泛化能力。当我们把具身任务视为是llm一个下游domain的时候，很多在两年前发生过的经验就可以被复用上来。\
+
+llm对自然语言处理的能力日益精进，外部工具调用、记忆框架、复杂的上下文管理等等让它在具体操作任务中释放出了巨大潜力，后来逐渐成熟为agent。以及现在被广泛描述的agent harness。各个基模大厂也基本都release出了coding agent的harness框架。很明显，coding agent不局限于coding，而是借助coding为接口，理论上可以解决发生在computer上的所有任务。配合vlm视觉的能力，computer-use agent得到发展，在agent的computer-use上，配合coding与visual日渐成熟。\
+
+## Harness 与具身任务
+
+llm的训练与harness要适配。预训练带来foundational的先验能力之后，以harness（这里说的更多是llm的harness，工具调用react，上下文memory等待）为基础，在各类环境中进行RL-based的post-training带来更大收益。post-training是个资源消耗的活，实践中对时间和compute等都有很高要求。这部分当然演化出许多RL的经典算法，核心在于efficient。当然也有许多理论问题的探索。可以感觉到，相比于RL，sft带来的收益似乎可以被划到pre-training，middle-training中解决。\
+
+将robotics任务视为基模的一个下游任务。天然的，我们首先希望模型有关于物理空间的先验理解（当然，它可能来自language，来自vision，来自embeding，等等）。然后一个可以输出自然语言的model当然可以控制robotics了，关节角如何变化，如何移动等等，这是自然的想法，也很早一直有工作在探索，近期工业界基模在这些任务上的出色表现给它带来更多关注。\
+
+follow llm 2 agent的范式，我们可以给基模提供robotics的环境和工具接口让它工作。很多robotics community称为robot harness。这里其实有了两个harness的概念。我认为合理的理解是在agent原有的harness上提供外部的具身接口。也就是，你在使用codex做robotics，而不只是一个chatgpt去chat控制robotics，你需要codex带来的工具调用、长程任务、memory、上下文压缩等待。而robotics-harness是针对robotics任务的，为llm agent提供的各种接口了。目前来看它更加外部，可以注入到agent的工作区。未来来说，它可以被各个大厂内化集成到自己家的agent框架里，just 类比 browser-use，computer-use。\
+
+## Harness 适配与 Agentic-RL
+
+llm的训练要适应自己工作的环境。这就是每个模型最适配自己的harness，A模型在Aharness上RL训练，它的工具调用可能就更长，更适合完成复杂任务，换到Bharness上可能就做不到了。这部分训练在LLM中主要通过后训练，在工业界非常成熟，我们尤其对agentic-RL，这类长程任务感兴趣。因为它非常现实实用，且牵扯到很多奖励信号稀疏，数据采样和训练的efficient问题。\
+
+一个自然的想法是，在具身仿真环境中，对基模做后训练，以提高基模在robotics任务上的效果。这里有几篇工作已经做了类似的事情。分别是，CAP-X，agenticROBOTRL，以及近期hansong组的Training Reasoning Models in Simulation to Natively Use Real Robots。这几篇我们详细讲讲。包括一些适配的框架，RPENT,CAP-X等等。这部分无论是让llm去做code-as-policy还是说调用一些policy等等，都是ok的，我们倾向于在training时充分发挥codiing的能力。在实际应用时当然可以支持一些底层system 01  policy的调用\
+
+大模型有着更强的物理空间先验，起步更适合去做RL。\
+
+## 从大模型到小模型
+
+小模型，比如qwen8B这种学校lab的常见配置，可以看到它实际效果很差，基本在有限时间内一个任务都无法完成。这时候有一些方法，比如给它一些sft的提升，在一些工作上我们也看到了这种提升。然后可以再做RL探索。\
+
+## Efficient 的问题
+
+还有更多问题围绕着这部分的efficient。就比如冷启动，上面聊到了sft，但是sft是否一定有必要做，可以看hansong组新发的paper。再比如数据sample的问题。我们面对一个非常复杂而长程的agent任务。\
+
+再比如reward问题。仿真环境一般常见的是二值的reward（表示任务是否做成）。当然可以考虑一些工作，去给出更细粒度的reward，以及去更细粒度的分配奖励信号到每条轨迹的token-level，修改GRPO-BASED的算法鼓励模型探索等等。总之工业界会很快给出scaling up的方式，到时候很多目前学界的harness工作就会直接内化到大厂的model自身的能力以及配套harness上。\
+
+## 理论问题
+
+这方面一个重要的理论问题是，模型做robotics任务到底需要什么能力。这些能力在先验的时候是否已经有了，RL又带来了什么。让我们不禁想到huanggao老师组的关于RLVR的讨论。那篇ICML best paper。例如，RL对于更好的物理理解，更合适的写code，等等，以及RL是否能显示的控制思维链长度以减少inference时间，进而缩短延迟等等。\
