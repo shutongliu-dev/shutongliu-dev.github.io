@@ -86,16 +86,16 @@ PEAR 采用 Robot-use RL：模型观察相机图像和机器人状态，输出�
 
 LIBERO 上的成功率从 1.6% 提升到 74.4%，在没有真实机器人训练数据的情况下，真实双臂机器人上达到 60%。但需要强调的是，这些 pure RL 效果建立在很高的 compute cost 上，论文报告训练总量约为 50,000 H100-equivalent GPU-hours。这个结果证明了路径可行，但不能直接理解成低成本的 RL recipe。PEAR 还把 long-context rollout、prefix cache、异步采样和动态 sampling 放进训练系统里，因为这里真正消耗资源的不是单轮更新，而是长程 episode 的反复 rollout。它展示的是一种直接用最终任务 reward 训练 reasoning model 学会 robot-use 的路径。
 
-## 从大模型到小模型
+## Post-training Scaling：Robotics Agentic RL 的下一步
 
-小模型，比如qwen8B这种学校lab的常见配置，可以看到它实际效果很差，基本在有限时间内一个任务都无法完成。这时候有一些方法，比如给它一些sft的提升，在一些工作上我们也看到了这种提升。然后可以再做RL探索。
+小模型，比如 qwen8B 这种学校 lab 的常见配置，实际效果可能很差，有限时间内一个任务都无法完成。这时 SFT 仍然有价值，它可以提供一个 cold start，让模型先学会基本的工具调用和操作顺序，再进入 RL 探索。但 PEAR 也说明，SFT 不是绝对前提：如果模型本身有足够强的 reasoning、coding 和视觉先验，配合 curriculum，RL 可以从接近零的成功率开始获得有效信号。区别在于，后者需要更大的模型、更精心的任务选择和更高的 compute。
 
-## Efficient 的问题
+这三篇工作共同暴露出的第一个问题是 sampling efficiency。一个完整的 robotics agent episode 可能包含几十轮图像、推理、tool call 和环境执行，采样成本远高于普通的单轮 RL。未来需要同时做 task selection、curriculum、parallel rollout、trajectory reuse 和 long-context cache。真正的 scaling 也不只是把模型参数做大，还包括每个模型能看到多少环境、产生多少次尝试，以及这些尝试能否稳定转化成训练信号。
 
-还有更多问题围绕着这部分的efficient。就比如冷启动，上面聊到了sft，但是sft是否一定有必要做，可以看hansong组新发的paper。再比如数据sample的问题。我们面对一个非常复杂而长程的agent任务。
+第二个问题是 reward 和 credit assignment。仿真环境中最常见的是最终 task success 的 binary reward，但一条失败轨迹里可能包含正确的视觉理解、正确的规划和一次失败的控制动作。如果把同一个 advantage 平均给所有 reasoning token、action token 和不同交互轮次，学习信号会非常粗糙。更细粒度的 subtask reward、process reward 和 token-level credit assignment 都值得探索，也需要区分 reasoning token 和 action token 在失败中的责任。GRPO、PPO 或其他 agentic-RL 算法真正要解决的，不只是如何更新模型，而是如何让稀疏的环境结果正确地回到长程轨迹中的关键决策。
 
-再比如reward问题。仿真环境一般常见的是二值的reward（表示任务是否做成）。当然可以考虑一些工作，去给出更细粒度的reward，以及去更细粒度的分配奖励信号到每条轨迹的token-level，修改GRPO-BASED的算法鼓励模型探索等等。总之工业界会很快给出scaling up的方式，到时候很多目前学界的harness工作就会直接内化到大厂的model自身的能力以及配套harness上。
+从工业界的角度看，post-training scaling 很可能会迅速成为下一阶段的主线。预训练和 middle-training 提供通用先验，post-training 则把模型放进 coding agent、computer-use、browser-use 或 robotics harness 中，让它在真实的工具和环境里反复试错。模型规模、rollout 数量、任务难度、环境多样性、推理预算、reward model 和 harness 质量都会成为可以扩展的轴。大厂已经在 coding agent 上积累了完整的训练和部署基础设施，robotics 很可能只是下一个被接入的 environment；很多现在由学界单独设计的 harness、memory、tool protocol 和 rollout system，未来会被直接内化到模型与 agent framework 里。
 
-## 理论问题
+这也解释了为什么 robotics harness 的形态很重要。今天它可能还是外部注入 agent 工作区的一组工具，之后可能变成模型原生理解的 action protocol，再往后可能和模型的 memory、context compression、computer-use 能力一起被联合训练。A 模型在 A-harness 上做过 RL，并不意味着换到 B-harness 还能完成同样多轮的工具调用；真正成熟的 post-training 需要让模型学习环境本身的接口和反馈规律。
 
-这方面一个重要的理论问题是，模型做robotics任务到底需要什么能力。这些能力在先验的时候是否已经有了，RL又带来了什么。让我们不禁想到huanggao老师组的关于RLVR的讨论。那篇ICML best paper。例如，RL对于更好的物理理解，更合适的写code，等等，以及RL是否能显示的控制思维链长度以减少inference时间，进而缩短延迟等等。
+更根本的问题仍然是，模型做 robotics 到底需要什么能力。物理理解、空间推理、写控制代码、调用工具、分解长程任务和根据反馈修正行为，这些能力有多少已经存在于 foundation model，只是没有被激活？RL 又究竟带来了什么新的能力？三篇工作更像是在说明，RL 可以让模型把已有的通用能力组织成一套适用于物理环境的行为策略，而不一定是在参数中重新写入完整的机器人知识。未来还需要研究 RL 能否显式控制 reasoning 长度，在保持成功率的同时减少 inference latency；这可能会和任务难度感知、action chunk、token-level reward 一起，决定 robotics agent 能否真正从实验室走向大规模部署。
