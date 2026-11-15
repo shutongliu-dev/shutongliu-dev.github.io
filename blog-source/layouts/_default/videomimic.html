@@ -16,8 +16,7 @@
   <main class="vm-main">
     <header class="vm-hero">
       {{ with .Params.kicker }}<div class="vm-kicker">{{ . }}</div>{{ end }}
-      <h1>{{ .Title }}</h1>
-      {{ with .Params.subtitle }}<p class="vm-subtitle">{{ . }}</p>{{ end }}
+      <h1>{{ .Title }}{{ with .Params.subtitle }}<br><span class="vm-title-subtitle">{{ . }}</span>{{ end }}</h1>
       {{ with .Params.authors }}<p class="vm-authors">{{ . }}</p>{{ end }}
       {{ with .Params.affiliation }}<p class="vm-affiliation">{{ . }}</p>{{ end }}
       {{ with .Params.date }}<p class="vm-date">{{ . | time.Format "January 2, 2006" }}</p>{{ end }}

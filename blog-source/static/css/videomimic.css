@@ -15,6 +15,7 @@ a:hover, a:focus-visible { color:#000; }
 .vm-toc a { color:#333; font-size:15px; text-decoration:none; }
 .vm-toc a:hover, .vm-toc a:focus-visible { text-decoration:underline; }
 .vm-hero h1 { margin:0 0 10px; font-size:clamp(2.5rem,6vw,3.75rem); line-height:1.1; letter-spacing:-.03em; }
+.vm-title-subtitle { font-size:.82em; font-weight:400; letter-spacing:-.02em; }
 .vm-kicker, .vm-article h2 { display:inline-block; background:#000; color:#fff; font-family:'Roboto Mono',monospace; }
 .vm-kicker { margin-bottom:20px; padding:6px 14px; font-size:14px; letter-spacing:.04em; }
 .vm-subtitle { margin:0 0 32px; max-width:920px; font-size:clamp(1.75rem,4vw,2.5rem); line-height:1.2; }

@@ -20,7 +20,7 @@ llm对自然语言处理的能力日益精进之后，外部工具调用、记�
 
 llm的训练与其harness要适配。预训练带来foundational的先验能力之后，以harness（这里说的是llm的agent harness）为基础，在各类环境中进行RL-based的post-training带来更大收益。post-training是个资源消耗的事，实践中对时间和compute等都有很高要求。这部分当然演化出许多post-training的方法，许多核心是如何做到更efficient。个人感觉，相比于RL，sft带来的收益似乎可以被划到pre-training，middle-training中解决。
 
-## Harness 与具身任务
+## llm4robotics
 
 将robotics任务视为基模的一个domain。天然的，我们首先希望模型有关于物理空间的先验理解（当然，它可能来自language，来自vision，来自latent representation，等等）。然后一个可以输出自然语言的model当然可以控制robotics的关节角如何变化，如何移动等等，这是自然的想法，也很早一直有工作在探索，近期o/a基模在这些任务上的出色表现给它带来更多关注。
 
