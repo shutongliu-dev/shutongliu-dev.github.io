@@ -17,9 +17,9 @@ TocOpen: true
 
 llm对自然语言处理的能力日益精进之后，外部工具调用、记忆框架、复杂的上下文系统管理等等让它在真实世界操作执行任务中释放出了巨大潜力，逐渐成熟为agent，以及现在被广泛提及的agent harness概念。各个基模大厂也基本都release出了自己coding agent的harness框架。coding agent不局限于coding，而是借助coding为接口，理论上可以解决发生在computer上的所有任务。随着 VLM 视觉能力不断增强，computer-use agent 逐渐发展起来，coding 与 visual 能力也在这一场景中不断成熟并形成协同。
 
-## Harness 与具身任务
+llm的训练与其harness要适配。预训练带来foundational的先验能力之后，以harness（这里说的是llm的agent harness）为基础，在各类环境中进行RL-based的post-training带来更大收益。post-training是个资源消耗的事，实践中对时间和compute等都有很高要求。这部分当然演化出许多post-training的方法，许多核心是如何做到更efficient。个人感觉，相比于RL，sft带来的收益似乎可以被划到pre-training，middle-training中解决。
 
-llm的训练与harness要适配。预训练带来foundational的先验能力之后，以harness（这里说的更多是llm的harness，工具调用react，上下文memory等待）为基础，在各类环境中进行RL-based的post-training带来更大收益。post-training是个资源消耗的活，实践中对时间和compute等都有很高要求。这部分当然演化出许多RL的经典算法，核心在于efficient。当然也有许多理论问题的探索。可以感觉到，相比于RL，sft带来的收益似乎可以被划到pre-training，middle-training中解决。
+## Harness 与具身任务
 
 将robotics任务视为基模的一个下游任务。天然的，我们首先希望模型有关于物理空间的先验理解（当然，它可能来自language，来自vision，来自embeding，等等）。然后一个可以输出自然语言的model当然可以控制robotics了，关节角如何变化，如何移动等等，这是自然的想法，也很早一直有工作在探索，近期工业界基模在这些任务上的出色表现给它带来更多关注。
 
