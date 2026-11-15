@@ -30,6 +30,22 @@ h3 { margin: 0 0 .3rem; font-size: 1rem; line-height: 1.45; font-weight: 600; }
 .highlighted { background: #fff8df; }
 .satellite-publication { grid-template-columns: 260px minmax(0, 1fr); }
 
+#blog { border-top: 1px solid #eee; padding-top: 1.75rem; }
+.blog-list { display: grid; }
+.blog-entry { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 1.75rem; align-items: center; padding: 1.25rem; margin-inline: -1.25rem; }
+.blog-entry:nth-child(even) { background: #fafafa; }
+.blog-media { min-height: 148px; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between; color: #fff; text-decoration: none; overflow: hidden; }
+.blog-media:hover { color: #fff; text-decoration: none; }
+.blog-media strong { font-size: 3rem; font-weight: 400; line-height: 1; letter-spacing: -.08em; }
+.blog-kicker, .blog-topic { font-size: .6875rem; letter-spacing: .12em; }
+.blog-kicker { opacity: .78; }
+.blog-topic { align-self: flex-end; opacity: .9; }
+.blog-media-computation { background: linear-gradient(145deg, #183b56, #3c7a89); }
+.blog-media-systems { background: linear-gradient(145deg, #4b2e4f, #98536f); }
+.blog-media-architecture { background: linear-gradient(145deg, #753b27, #c27a42); }
+.blog-media-foundations { background: linear-gradient(145deg, #355c45, #72a276); }
+.blog-meta { color: var(--muted); font-size: .875rem; }
+
 .rldex-publication {
   grid-template-columns: 300px minmax(0, 1fr);
 }
@@ -64,7 +80,7 @@ footer p { margin-bottom: .4rem; }
 @media (max-width: 680px) {
  .profile { grid-template-columns: minmax(0, 1fr) 180px; gap: 1.5rem; }
  h1 { font-size: 1.75rem; }
- .publication { grid-template-columns: 180px minmax(0, 1fr); gap: 1.25rem; }
+ .publication, .blog-entry { grid-template-columns: 180px minmax(0, 1fr); gap: 1.25rem; }
  .rldex-publication { grid-template-columns: 230px minmax(0, 1fr); }
  .experience-entry { grid-template-columns: 48px 135px minmax(0, 1fr); gap: 1.25rem; }
  .institution-mark { width: 46px; height: 46px; }
@@ -74,7 +90,7 @@ footer p { margin-bottom: .4rem; }
  .profile { grid-template-columns: minmax(0, 1fr); padding-top: 1.75rem; gap: 1.5rem; }
  .profile-photo { grid-row: 1; width: 130px; justify-self: center; }
  h1 { font-size: 1.875rem; }
- .publication, .satellite-publication { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding: 1.25rem .75rem; margin-inline: -.75rem; }
+ .publication, .satellite-publication, .blog-entry { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding: 1.25rem .75rem; margin-inline: -.75rem; }
  .paper-figure { max-width: 360px; margin-inline: auto; }
  .experience-entry { grid-template-columns: 44px minmax(0, 1fr); gap: .75rem; }
  .experience-entry .entry-date { grid-column: 2; }
