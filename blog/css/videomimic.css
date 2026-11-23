@@ -50,6 +50,13 @@ a:hover, a:focus-visible { color:#000; }
 .vm-article :not(pre) > code { padding:2px 5px; background:#eee8dc; }
 .vm-article table { width:100%; margin:28px 0; border-collapse:collapse; font-size:.85em; }
 .vm-article th, .vm-article td { padding:8px 10px; border-bottom:1px solid var(--vm-rule); text-align:left; }
+.vm-cite { margin:26px 0 44px; border:1px solid #333; border-radius:8px; background:#fff; overflow:hidden; }
+.vm-cite-head { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; padding:9px 14px; border-bottom:1px solid #333; }
+.vm-cite-label { color:var(--vm-muted); font:600 11px/1 'Roboto Mono',monospace; letter-spacing:.14em; text-transform:uppercase; }
+.vm-cite-copy { padding:6px 12px; border:1px solid #333; border-radius:6px; background:#fff; color:#222; font:600 11px/1 'Roboto Mono',monospace; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; transition:background .15s ease,color .15s ease; }
+.vm-cite-copy:hover, .vm-cite-copy:focus-visible, .vm-cite-copy[data-state=copied], .vm-cite-copy[data-state=error] { background:#222; color:#fff; }
+.vm-cite-copy:focus-visible { outline:2px solid #222; outline-offset:2px; }
+.vm-cite-body pre, .vm-cite-body .highlight { margin:0; border-radius:0; }
 .vm-footer { display:flex; justify-content:center; gap:10px; margin-top:80px; padding-top:30px; border-top:1px solid var(--vm-rule); color:#666; font-size:14px; }
 @media (min-width:1400px) { .vm-toc { display:block; left:max(30px,calc(25vw - 330px)); } }
 @media (max-width:700px) { body.videomimic-page { padding:32px 20px; } .vm-article { font-size:18px; } .vm-links a { display:inline-block; margin:0 8px 10px; } .vm-resource-links { gap:8px; padding:10px 12px; } .vm-resource-links-title { width:100%; margin-bottom:2px; } .vm-footer { flex-wrap:wrap; margin-top:55px; } }

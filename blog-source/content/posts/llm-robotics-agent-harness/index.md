@@ -101,7 +101,7 @@ LIBERO 上的成功率从 1.6% 提升到 74.4%，在没有真实机器人训练�
 
 站在工业界的角度，针对 robotics 任务的 post-training scaling 是一件很值得做的事情。仿真环境天然提供了丰富且合适的 environment 和 reward，支撑着大规模可并行的 RL 探索。这部分 post-training 不仅是针对 model 本身的，相信会让 model 和其 harness 充分适配，在环境中不断强化自身。我们过往出色地解决了 coding、数学证明、computer-use 等等，期待在 robotics 上，我们过往的经验和崭新的知识与场景也会协同起来绽放硕果。
 
-## Cite
+## References
 
 ```bibtex
 @inproceedings{fu2026capx,
@@ -128,3 +128,20 @@ LIBERO 上的成功率从 1.6% 提升到 74.4%，在没有真实机器人训练�
   url     = {https://mit-han-lab.github.io/pear-blog/}
 }
 ```
+
+## Cite
+
+如果这篇文章对你的工作有帮助，可以用下面的 BibTeX 引用。
+
+{{< cite >}}
+```bibtex
+@misc{liu2026llm4robotics,
+  title        = {{LLM4Robotics}: Post-Training in Harness},
+  author       = {Liu, Shutong},
+  year         = {2026},
+  month        = nov,
+  howpublished = {Blog post},
+  url          = {https://shutongliu-dev.github.io/blog/posts/llm-robotics-agent-harness/}
+}
+```
+{{< /cite >}}

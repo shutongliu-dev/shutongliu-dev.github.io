@@ -1,0 +1,8 @@
+{{- $label := .Get "label" | default "BibTeX" -}}
+<div class="vm-cite">
+  <div class="vm-cite-head">
+    <span class="vm-cite-label">{{ $label }}</span>
+    <button class="vm-cite-copy" type="button" data-vm-copy aria-label="Copy citation to clipboard">Copy</button>
+  </div>
+  <div class="vm-cite-body">{{ .Inner | .Page.RenderString }}</div>
+</div>
